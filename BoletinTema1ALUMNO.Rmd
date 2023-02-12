@@ -195,8 +195,16 @@ str(df_c)
 #b)
 
 any(is.na(df_c))
-
 colSums(sapply(df_c, is.na))
+
+#c)
+dim(Chile)
+head(Chile)
+tail(Chile)
+str(Chile)
+
+any(is.na(Chile))
+colSums(sapply(Chile, is.na))
 
 
 ```
