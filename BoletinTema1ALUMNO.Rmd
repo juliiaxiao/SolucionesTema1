@@ -257,9 +257,9 @@ plot(df_c$VitC, df_c$HeadWt)
 #Diagrama de dispersión etiquetando según un factor.
 plot(df_c$VitC, df_c$HeadWt, pch=c(6,16)[df_c$HeadWtl])
 # Planteamos 2 modelos lineales, uno para los datos de cada factor
-Model1 <- lm(HeadWt~VitC, data = df_c)
+Model3 <- lm(HeadWt~VitC, data = df_c)
 # Representamos las rectas correspondientes a cada modelo lineal
-abline(Model1, lty=2)
+abline(Model3, lty=2)
 
 #b)
 
@@ -269,18 +269,20 @@ plot(df_c$VitC, df_c$HeadWt)
 plot(df_c$VitC, df_c$HeadWt, pch=c(6,16)[df_c$HeadWtl])
 legend(x="topright",legend=c("Cult = c39","Cult = c52"), pch=c(6,16))
 # Planteamos 2 modelos lineales, uno para los datos de cada factor
-Model1 <- lm(HeadWt~VitC, data = df_c, subset = which(Cult == "c39"))
-Model2 <- lm(HeadWt~VitC, data = df_c, subset = which(Cult == "c52"))
+Model4 <- lm(HeadWt~VitC, data = df_c, subset = which(Cult == "c39"))
+Model5 <- lm(HeadWt~VitC, data = df_c, subset = which(Cult == "c52"))
 # Representamos las rectas correspondientes a cada modelo lineal
-abline(Model1, lty=2)
-abline(Model2)
+abline(Model4, lty=2)
+abline(Model5)
 
 ```
 
 c.  Usa **summary** con cada uno de los modelos obtenidos y observa **Coefficients**. Dado que hemos planteado un modelo $y=mx+n$, donde $y=VitC$ y $x=HeadWt$. La función **lm** nos permite obtener **(Intercept)**; **n** y la pendiente **HeadWt**; **m** (además de otros parámetros adicionales que evalúan la caracterísiticas del modelo). Observa que en todos los casos, la pendiene es negativa indicando que las calabazas de más peso contienen menos vitamina C. No te preocupes por el resto de parámetros del modelo, por el momento.
 
 ```{r}
-
-
-
+summary(Model1)
+summary(Model2)
+summary(Model3)
+summary(Model4)
+summary(Model5)
 ```
