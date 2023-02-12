@@ -261,8 +261,19 @@ Model1 <- lm(HeadWt~VitC, data = df_c)
 # Representamos las rectas correspondientes a cada modelo lineal
 abline(Model1, lty=2)
 
-summary(Model1)
+#b)
 
+#Diagrama de dispersión global.
+plot(df_c$VitC, df_c$HeadWt)
+#Diagrama de dispersión etiquetando según un factor.
+plot(df_c$VitC, df_c$HeadWt, pch=c(6,16)[df_c$HeadWtl])
+legend(x="topright",legend=c("Cult = c39","Cult = c52"), pch=c(6,16))
+# Planteamos 2 modelos lineales, uno para los datos de cada factor
+Model1 <- lm(HeadWt~VitC, data = df_c, subset = which(Cult == "c39"))
+Model2 <- lm(HeadWt~VitC, data = df_c, subset = which(Cult == "c52"))
+# Representamos las rectas correspondientes a cada modelo lineal
+abline(Model1, lty=2)
+abline(Model2)
 
 ```
 
