@@ -192,26 +192,11 @@ head(df_c)
 tail(df_c)
 str(df_c)
 
+#b)
 
+any(is.na(df_c))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+colSums(sapply(df_c, is.na))
 
 
 ```
