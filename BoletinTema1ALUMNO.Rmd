@@ -105,6 +105,21 @@ row.names(df_m)
 colnames(df_m)
 ```
 
+Ahora, vamos con el conjunto de Animals2
+
+```{r}
+library(robustbase)
+
+df_a <- robustbase::Animals2
+
+dim(df_a)
+head(df_a)
+tail(df_a)
+str(df_a)
+row.names(df_a)
+colnames(df_a)
+```
+
 d.  Usa la función **intersect** y almacena en la variable *commonAnimals* los aminales que aparezcan en ambos conjuntos
 
 ```{r}
