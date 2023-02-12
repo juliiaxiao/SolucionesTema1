@@ -184,9 +184,13 @@ qqPlot(log(Animals2$brain))
 
 ```{r}
 
+#a)
 
-
-
+df_c <- MASS::cabbages
+dim(df_c)
+head(df_c)
+tail(df_c)
+str(df_c)
 
 
 
