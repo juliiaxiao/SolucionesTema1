@@ -85,30 +85,24 @@ package.check <- lapply(packages, FUN = function(x) {
 
 1.  Considera los conjuntos de datos **mammals** del paquete **MASS** y **Animals2** del paquete **robustbase**.
 
-<!-- -->
+2.  Mira la las características de ambos conjuntos usando la ayuda.
 
-a.  Mira la las características de ambos conjuntos usando la ayuda.
-b.  Usa las funciones **dim, head, tail, str** para una primera visión de los conjuntos de datos.
-c.  Muestra los nombres de las filas y las columnas (**rownames**, **colnames**)
+3.  Usa las funciones **dim, head, tail, str** para una primera visión de los conjuntos de datos.
+
+4.  Muestra los nombres de las filas y las columnas (**rownames**, **colnames**)
+
+Primero, consideramos el conjunto mammals.
 
 ```{r}
+library(MASS)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+df_m <- MASS::mammals
+dim(df_m)
+head(df_m)
+tail(df_m)
+str(df_m)
+row.names(df_m)
+colnames(df_m)
 ```
 
 d.  Usa la función **intersect** y almacena en la variable *commonAnimals* los aminales que aparezcan en ambos conjuntos
