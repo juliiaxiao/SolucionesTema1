@@ -146,10 +146,12 @@ a_no_m
 e.  Determina las diferencia entre los animales que no aparecen en ambos conjuntos.
 
 ```{r}
-#La mayoría de los animales están mal escritos o por lo menos no están escritos con el mismo nombre.
+#La mayoría de los animales están mal escritos o por lo menos no están escritos con el mismo nombre. Por ejemplo: "Arctic fox" y "Artic fox"
 ```
 
 2.  La funcion **qqPlot** del paquete **car** puede ser utilizada para determinar gráficamente si una serie de puntos siguen una distribución de datos Gaussiana. Si las muestras están dentro de las líneas discontinuas podemos indicar que siguen una distribución Gaussiana con un 95 % de confianza. Utilizando esta función representa el logaritmo neperiano (**log**) del peso del cerebro (**brain weigths**) del registro de datos **mammals** del paquete **MASS** y conjunto de datos **Animals2** de la librería **robustbase**. ¿Presentan el mismo comportamiento ?.¿Podríamos decir que siguen una distribución Gaussiana ?
+
+    Presentan un comportamiento parecido y podemos afirmar que siguen una distribución Gaussiana.
 
 ```{r}
 library(car)
@@ -167,12 +169,18 @@ qqPlot(log(Animals2$brain))
 
     c.  Determina el número de librerías que tienes instaladas.
 
-        Tengo 5 librerias instaladas
+        Tengo 201 librerias instaladas
 
     ```{r}
+    #a)
     libReturn <- library()
-    libReturn[[2]][1:5]
-    head(libReturn$results, n = 5)
+
+    #b)
+    matriz_caracteres <- libReturn[[2]]
+    head(matriz_caracteres, 5)
+
+    #c)
+    dim(libReturn[[2]])
     ```
 
 4.  En las transparencias del tema 1 se citan los primeros pasos a seguir cuando se analiza un nuevo conjunto de datos.
@@ -195,7 +203,7 @@ str(df_c)
 #b)
 
 any(is.na(df_c))
-colSums(sapply(df_c, is.na))
+colSums(sapply(df_c, is.na)) #No hay valores perdidos
 
 #c)
 dim(Chile)
@@ -203,8 +211,9 @@ head(Chile)
 tail(Chile)
 str(Chile)
 
-any(is.na(Chile))
-colSums(sapply(Chile, is.na))
+any(is.na(Chile)) #Hay valores perdidos
+colSums(sapply(Chile, is.na)) 
+#Hay 1 valor perdido en age, 11 en education, 98 en income , 17 en statusquo y 168 en vote
 
 #d)
 summary(df_c)
@@ -212,6 +221,8 @@ summary(Chile)
 ```
 
 5.  Muchas pruebas estadísticas suponen que los datos siguen una distribución Gaussiana. Utiliza la aproximación visual proporcionada por **qqPlot** para determinar si podemos asumir que las variables **HeadWt** y **VitC** del conjunto **cabbages** verifican esta condición.
+
+    Las variables verifican esta condición.
 
 ```{r}
 qqPlot(df_c$HeadWt)
@@ -221,7 +232,11 @@ qqPlot(df_c$VitC)
 6.  Una representación habitual, para determinar la distribución de los datos de una variable cuantitativa es el histograma (**hist**). Determina, de forma aproximada, utilizando el histograma, si hay diferencias entre los contenidos de vitamina C (**VitC**), para las diferentes variedades de calabaza (variable **Cult**), en el conjunto de datos **cabbages**.
 
 ```{r}
-ggplot(df_c, aes(VitC,fill = Cult)) + geom_histogram(alpha = 0.5)
+hist(cabbages$VitC[cabbages$Cult == "c39"], col = "blue",main="Contenido de Vitamina C por variedad de calabaza", xlab="Contenido de Vitamina C")
+hist(cabbages$VitC[cabbages$Cult == "c52"], col = "red", add = TRUE)
+
+# Agregar una leyenda al gráfico
+legend("topright", legend=c("c39", "c52"), fill=c("blue", "red"))
 
 ```
 
@@ -251,29 +266,29 @@ b.  Repite el apartado anterior, pero obteniendo un modelo para cada una de las 
 ```{r}
 
 #a)
-
 #Diagrama de dispersión global.
-plot(df_c$VitC, df_c$HeadWt)
+plot(cabbages$HeadWt, cabbages$VitC, xlab = "Peso de la calabaza", ylab = "Niveles de Vitamina C")
 #Diagrama de dispersión etiquetando según un factor.
-plot(df_c$VitC, df_c$HeadWt, pch=c(6,16)[df_c$HeadWtl])
+plot(cabbages$HeadWt, cabbages$VitC, pch=c(6,16)[cabbages$Cult], xlab="Peso de la calabaza", ylab = "Niveles de Vitamina C")
 # Planteamos 2 modelos lineales, uno para los datos de cada factor
-Model3 <- lm(HeadWt~VitC, data = df_c)
+Model3 <- lm(VitC~HeadWt, data = cabbages)
 # Representamos las rectas correspondientes a cada modelo lineal
 abline(Model3, lty=2)
 
 #b)
 
 #Diagrama de dispersión global.
-plot(df_c$VitC, df_c$HeadWt)
+plot(cabbages$HeadWt, cabbages$VitC, xlab="Peso de la calabaza", ylab = "Niveles de Vitamina C")
 #Diagrama de dispersión etiquetando según un factor.
-plot(df_c$VitC, df_c$HeadWt, pch=c(6,16)[df_c$HeadWtl])
+plot(cabbages$HeadWt, cabbages$VitC, pch=c(6,16)[cabbages$Cult], xlab="Peso de la calabaza", ylab = "Niveles de Vitamina C")
 legend(x="topright",legend=c("Cult = c39","Cult = c52"), pch=c(6,16))
 # Planteamos 2 modelos lineales, uno para los datos de cada factor
-Model4 <- lm(HeadWt~VitC, data = df_c, subset = which(Cult == "c39"))
-Model5 <- lm(HeadWt~VitC, data = df_c, subset = which(Cult == "c52"))
+Model4 <- lm(VitC~HeadWt, data = cabbages, subset = (cabbages$Cult == "c39"))
+Model5 <- lm(VitC~HeadWt, data = cabbages, subset = (cabbages$Cult == "c52"))
 # Representamos las rectas correspondientes a cada modelo lineal
 abline(Model4, lty=2)
-abline(Model5)
+abline(Model5, lty=1)
+
 
 ```
 
